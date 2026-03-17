@@ -1,5 +1,6 @@
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -9,7 +10,7 @@ public class DictionaryApp {
     static HashMap<String, String> dictionary = new HashMap<>();
 
     public static void main(String[] args) {
-
+loadFromFile();
         Scanner sc = new Scanner(System.in);
 
         while (true) {
@@ -30,6 +31,7 @@ public class DictionaryApp {
                     String meaning = sc.nextLine();
 
                     dictionary.put(word, meaning);
+                        saveToFile();
                     System.out.println("Word added!");
                     break;
 
@@ -64,4 +66,36 @@ public class DictionaryApp {
             e.printStackTrace();
         }
     }
+public static void loadFromFile() {
+    try {
+        File file = new File("data/dictionary.txt");
+
+        // Nếu file chưa tồn tại thì không làm gì
+        if (!file.exists()) {
+            return;
+        }
+
+        Scanner sc = new Scanner(file);
+
+        while (sc.hasNextLine()) {
+            String line = sc.nextLine();
+
+            // Tách theo dấu =
+            String[] parts = line.split("=");
+
+            if (parts.length == 2) {
+                String word = parts[0];
+                String meaning = parts[1];
+
+                dictionary.put(word, meaning);
+            }
+        }
+
+        sc.close();
+        System.out.println("Data loaded!");
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
 }
