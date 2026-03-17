@@ -1,3 +1,6 @@
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -44,6 +47,21 @@ public class DictionaryApp {
                 case 3:
                     System.exit(0);
             }
+        }
+    }
+
+    public static void saveToFile() {
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter("data/dictionary.txt"));
+
+            for (String word : dictionary.keySet()) {
+                bw.write(word + "=" + dictionary.get(word));
+                bw.newLine();
+            }
+
+            bw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
