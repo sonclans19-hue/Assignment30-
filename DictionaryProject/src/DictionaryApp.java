@@ -10,13 +10,13 @@ public class DictionaryApp {
     static HashMap<String, String> dictionary = new HashMap<>();
 
     public static void main(String[] args) {
-loadFromFile();
+        loadFromFile();
         Scanner sc = new Scanner(System.in);
 
         while (true) {
             System.out.println("\n1. Add word");
             System.out.println("2. Lookup word");
-            System.out.println("3. Exit");
+            System.out.println("3.Update word");
             System.out.print("Choose: ");
 
             int choice = sc.nextInt();
@@ -25,13 +25,19 @@ loadFromFile();
             switch (choice) {
                 case 1:
                     System.out.print("Enter word: ");
-                    String word = sc.nextLine();
+                    String word = sc.nextLine().toLowerCase(); // chuẩn hóa luôn
+
+                    // 👇 kiểm tra ngay sau khi nhập word
+                    if (dictionary.containsKey(word)) {
+                        System.out.println("Word already exists! Cannot add again.");
+                        break; // 👈 thoát luôn, không cho nhập meaning
+                    }
 
                     System.out.print("Enter meaning: ");
                     String meaning = sc.nextLine();
 
                     dictionary.put(word, meaning);
-                        saveToFile();
+                    saveToFile();
                     System.out.println("Word added!");
                     break;
 
@@ -47,7 +53,10 @@ loadFromFile();
                     break;
 
                 case 3:
-                    System.exit(0);
+                    updateWord(sc);
+                    break;
+                case 4:
+
             }
         }
     }
@@ -66,36 +75,54 @@ loadFromFile();
             e.printStackTrace();
         }
     }
-public static void loadFromFile() {
-    try {
-        File file = new File("data/dictionary.txt");
 
-        // Nếu file chưa tồn tại thì không làm gì
-        if (!file.exists()) {
-            return;
-        }
+    public static void loadFromFile() {
+        try {
+            File file = new File("data/dictionary.txt");
 
-        Scanner sc = new Scanner(file);
-
-        while (sc.hasNextLine()) {
-            String line = sc.nextLine();
-
-            // Tách theo dấu =
-            String[] parts = line.split("=");
-
-            if (parts.length == 2) {
-                String word = parts[0];
-                String meaning = parts[1];
-
-                dictionary.put(word, meaning);
+            // Nếu file chưa tồn tại thì không làm gì
+            if (!file.exists()) {
+                return;
             }
+
+            Scanner sc = new Scanner(file);
+
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+
+                // Tách theo dấu =
+                String[] parts = line.split("=");
+
+                if (parts.length == 2) {
+                    String word = parts[0];
+                    String meaning = parts[1];
+
+                    dictionary.put(word, meaning);
+                }
+            }
+
+            sc.close();
+            System.out.println("Data loaded!");
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        sc.close();
-        System.out.println("Data loaded!");
-
-    } catch (Exception e) {
-        e.printStackTrace();
     }
-}
+
+    public static void updateWord(Scanner sc) {
+        System.out.print("Enter word to update: ");
+        String word = sc.nextLine();
+
+        if (dictionary.containsKey(word)) {
+            System.out.print("Enter new meaning: ");
+            String meaning = sc.nextLine();
+
+            dictionary.put(word, meaning);
+            saveToFile();
+            System.out.println("Word updated!");
+        } else {
+            System.out.println("Word not found!");
+        }
+    }
+
 }

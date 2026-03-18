@@ -1,2 +1,4 @@
+3=ba
 cat=con meo
-dog=con cho
+hello=xin chao
+dog=con chooo

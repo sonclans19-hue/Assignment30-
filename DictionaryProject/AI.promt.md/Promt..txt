@@ -2,4 +2,8 @@
  
 18/3/2006:Viết hàm Java để lưu dữ liệu từ HashMap vào file text, mỗi dòng có dạng word=meaning
           Viết hàm Java để đọc dữ liệu từ file text và lưu vào HashMap
-         
+ 19/3/2006: -tạo cho tôi các hàm update các từ mới  
+            - Cách để ko ko phân biệt chữ hoa chữ thường khi nhập chữ hoa hay chữ thường thì ý nghĩa nó đều là 1
+            - Bây h tôi muốn thêm chức năng update nhưng mà khi tôi sử dụng case 1 nhãn nhập từ đó thì nó đã thay
+            thế chức năng này rồi bạn có thể tách ra đc ko  
+             - Sửa để tránh thêm từ trùng với từ trước đó đã thêm
