@@ -17,6 +17,7 @@ public class DictionaryApp {
             System.out.println("\n1. Add word");
             System.out.println("2. Lookup word");
             System.out.println("3.Update word");
+            System.out.println("4.Delete word");
             System.out.print("Choose: ");
 
             int choice = sc.nextInt();
@@ -25,9 +26,8 @@ public class DictionaryApp {
             switch (choice) {
                 case 1:
                     System.out.print("Enter word: ");
-                    String word = sc.nextLine().toLowerCase(); // chuẩn hóa luôn
+                    String word = sc.nextLine().toLowerCase();
 
-                    // 👇 kiểm tra ngay sau khi nhập word
                     if (dictionary.containsKey(word)) {
                         System.out.println("Word already exists! Cannot add again.");
                         break; // 👈 thoát luôn, không cho nhập meaning
@@ -55,7 +55,14 @@ public class DictionaryApp {
                 case 3:
                     updateWord(sc);
                     break;
+
                 case 4:
+                    System.out.print("Enter word to delete: ");
+                    String words = sc.nextLine().toLowerCase();
+
+                    deleteWord(words); // 👈 chỉ gọi hàm
+
+                    break;
 
             }
         }
@@ -120,6 +127,18 @@ public class DictionaryApp {
             dictionary.put(word, meaning);
             saveToFile();
             System.out.println("Word updated!");
+        } else {
+            System.out.println("Word not found!");
+        }
+    }
+
+    public static void deleteWord(String word) {
+        word = word.toLowerCase();
+
+        if (dictionary.containsKey(word)) {
+            dictionary.remove(word);
+            saveToFile();
+            System.out.println("Word deleted!");
         } else {
             System.out.println("Word not found!");
         }
