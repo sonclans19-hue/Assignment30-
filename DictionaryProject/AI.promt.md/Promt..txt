@@ -1,10 +1,11 @@
-17/3/2006: Làm thế nào để lưu dữ liệu HashMap vào một tệp văn bản trong Java?
+16/3/2026: Làm thế nào để lưu dữ liệu HashMap vào một tệp văn bản trong Java?
  
-18/3/2006:Viết hàm Java để lưu dữ liệu từ HashMap vào file text, mỗi dòng có dạng word=meaning
+17/3/2026:Viết hàm Java để lưu dữ liệu từ HashMap vào file text, mỗi dòng có dạng word=meaning
           Viết hàm Java để đọc dữ liệu từ file text và lưu vào HashMap
 
- 19/3/2006: -tạo cho tôi các hàm update các từ mới  
-            - Cách để ko ko phân biệt chữ hoa chữ thường khi nhập chữ hoa hay chữ thường thì ý nghĩa nó đều là 1
+ 18/3/2026: -tạo cho tôi các hàm update các từ mới  
+            - Cách để ko  phân biệt chữ hoa chữ thường để khi tra hoặc xoá thì vẫn chỉ là 1 từ đó
+              - Trong case 1 jup tôi tránh thêm từ trùng lặp .
             - Chức năng Add trong chương trình của tôi đang dùng HashMap.put() nên bị ghi đè dữ liệu (giống update).
 
               Tôi muốn tách:
@@ -12,6 +13,7 @@
             + Update: chỉ sửa từ đã tồn tại
               Làm sao để tách rõ hai chức năng này?
 
-             - Trong case 1 jup tôi tránh thêm từ trùng lặp .
+             
 
              - Tạo hàm xoá từ
+19/3/2026 từ đoạn code trên tạo hàm autocomplete

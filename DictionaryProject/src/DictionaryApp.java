@@ -2,7 +2,10 @@
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 public class DictionaryApp {
@@ -41,9 +44,19 @@ public class DictionaryApp {
                     System.out.println("Word added!");
                     break;
 
+  
                 case 2:
                     System.out.print("Enter word: ");
                     word = sc.nextLine();
+
+                    List<String> suggestions = autocomplete(word, dictionary);
+
+                    if (!suggestions.isEmpty()) {
+                        System.out.println("Suggestions:");
+                        for (int i = 0; i < Math.min(5, suggestions.size()); i++) {
+                            System.out.println("- " + suggestions.get(i));
+                        }
+                    }
 
                     if (dictionary.containsKey(word)) {
                         System.out.println("Meaning: " + dictionary.get(word));
@@ -66,6 +79,22 @@ public class DictionaryApp {
 
             }
         }
+    }
+
+    public static List<String> autocomplete(String input, HashMap<String, String> dictionary) {
+        List<String> suggestions = new ArrayList<>();
+
+        input = input.toLowerCase();
+
+        for (String word : dictionary.keySet()) {
+            if (word.toLowerCase().startsWith(input)) {
+                suggestions.add(word);
+            }
+        }
+
+        Collections.sort(suggestions); // optional: sắp xếp
+
+        return suggestions;
     }
 
     public static void saveToFile() {
