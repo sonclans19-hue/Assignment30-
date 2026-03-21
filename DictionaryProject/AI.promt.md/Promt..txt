@@ -1,4 +1,4 @@
-16/3/2026: Làm thế nào để lưu dữ liệu HashMap vào một tệp văn bản trong Java?
+16/3/2026: Tạo ra quy trình làm phần phần mềm từ điển bao gồm phần core gồm thêm  từ và tìm từ  + phi tính năng
  
 17/3/2026:Viết hàm Java để lưu dữ liệu từ HashMap vào file text, mỗi dòng có dạng word=meaning
           Viết hàm Java để đọc dữ liệu từ file text và lưu vào HashMap
@@ -17,3 +17,6 @@
 
              - Tạo hàm xoá từ
 19/3/2026 từ đoạn code trên tạo hàm autocomplete
+20/3/2026:Hãy giúp tôi thiết kế lại một chương trình từ điển bằng Java theo hướng OOP. mỗi file có một nhiệm vụ riêng
+           Nhiệm vụ của từng class trong project này 
+21/3/2026:Thêm chức năng hiển thị tất cả từ đã thêm theo cách phân trang mỗi trang 10 từ và yêu cầu xác nhận sau khi xoá dữ liệu

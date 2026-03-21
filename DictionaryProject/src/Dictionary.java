@@ -34,6 +34,17 @@ public class Dictionary {
         return suggestions;
     }
 
+    public List<Word> listAllWords() {
+        List<String> words = new ArrayList<>(entries.keySet());
+        Collections.sort(words);
+
+        List<Word> results = new ArrayList<>();
+        for (String word : words) {
+            results.add(new Word(word, entries.get(word)));
+        }
+        return results;
+    }
+
     public void loadFromMap(Map<String, String> data) {
         entries.clear();
         entries.putAll(data);

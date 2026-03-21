@@ -94,6 +94,10 @@ public class DictionaryService {
         return dictionary.autocomplete(prefix);
     }
 
+    public List<Word> listAllWords() {
+        return dictionary.listAllWords();
+    }
+
     private String normalize(String raw) {
         if (raw == null) {
             return "";
