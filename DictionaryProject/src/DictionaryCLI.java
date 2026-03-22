@@ -20,7 +20,11 @@ public class DictionaryCLI {
             System.out.println("3. Update word");
             System.out.println("4. Delete word");
             System.out.println("5. Show all words");
-            System.out.println("6. Exit");
+            System.out.println("6. Statistics");
+            System.out.println("7. Delete all words");
+            System.out.println("8. Favorite word");
+            System.out.println("9. Show favorite words");
+            System.out.println("10. Exit");
             System.out.print("Choose: ");
 
             int choice;
@@ -48,7 +52,7 @@ public class DictionaryCLI {
                             System.out.println("Word already exists! Cannot add again.");
                             break;
                         default:
-                            System.out.println("Invalid word! Cannot add.");
+                            System.out.println("Invalid data! Word cannot be empty and meaning must be 1-300 characters.");
                     }
                     break;
                 }
@@ -67,7 +71,11 @@ public class DictionaryCLI {
 
                     Word found = service.lookupWord(word);
                     if (found != null) {
-                        System.out.println("Meaning: " + found.getMeaning());
+                        if (service.isFavorite(word)) {
+                            System.out.println("[Favorite] Meaning: " + found.getMeaning());
+                        } else {
+                            System.out.println("Meaning: " + found.getMeaning());
+                        }
                     } else {
                         System.out.println("Word not found!");
                     }
@@ -89,8 +97,18 @@ public class DictionaryCLI {
                     System.out.print("Enter new meaning: ");
                     String newMeaning = scanner.nextLine();
 
-                    service.updateWord(word, newMeaning);
-                    System.out.println("Word updated!");
+                    DictionaryService.UpdateWordResult updateResult = service.updateWord(word, newMeaning);
+                    switch (updateResult) {
+                        case UPDATED:
+                            System.out.println("Word updated!");
+                            break;
+                        case NOT_FOUND:
+                            System.out.println("Word not found!");
+                            break;
+                        default:
+                            System.out.println("Invalid meaning! Please enter 1-300 characters.");
+                            break;
+                    }
                     break;
                 }
 
@@ -132,12 +150,77 @@ public class DictionaryCLI {
                 }
 
                 case 6:
+                    DictionaryService.Statistics stats = service.getStatistics();
+                    System.out.println("\nStatistics:");
+                    System.out.println("- Total words: " + stats.getTotalWords());
+                    System.out.println("- Words added today: " + stats.getWordsAddedToday());
+                    if (stats.getMostSearchedWord() == null) {
+                        System.out.println("- Most searched word: No lookup data yet");
+                    } else {
+                        System.out.println("- Most searched word: " + stats.getMostSearchedWord()
+                                + " (" + stats.getMostSearchedCount() + " times)");
+                    }
+                    break;
+
+                case 7: {
+                    List<Word> before = service.listAllWords();
+                    if (before.isEmpty()) {
+                        System.out.println("Dictionary is already empty.");
+                        break;
+                    }
+                    System.out.println("This will delete ALL " + before.size() + " word(s) permanently.");
+                    System.out.print("Type DELETE ALL to confirm: ");
+                    String confirm = scanner.nextLine().trim();
+                    if (!confirm.equals("DELETE ALL")) {
+                        System.out.println("Canceled.");
+                        break;
+                    }
+                    service.clearAll();
+                    System.out.println("All words deleted.");
+                    break;
+                }
+
+                case 8: {
+                    System.out.print("Enter word: ");
+                    String word = scanner.nextLine();
+                    DictionaryService.FavoriteToggleResult favResult = service.toggleFavorite(word);
+                    switch (favResult) {
+                        case ADDED:
+                            System.out.println("Added to favorites.");
+                            break;
+                        case REMOVED:
+                            System.out.println("Removed from favorites.");
+                            break;
+                        case NOT_IN_DICTIONARY:
+                            System.out.println("Word is not in the dictionary. Add it first.");
+                            break;
+                        default:
+                            System.out.println("Invalid word.");
+                    }
+                    break;
+                }
+
+                case 9: {
+                    List<Word> favs = service.listFavoriteWords();
+                    if (favs.isEmpty()) {
+                        System.out.println("No favorite words yet.");
+                    } else {
+                        System.out.println("\nFavorite words:");
+                        for (int i = 0; i < favs.size(); i++) {
+                            Word w = favs.get(i);
+                            System.out.println((i + 1) + ". " + w.getText());
+                        }
+                    }
+                    break;
+                }
+
+                case 10:
                     System.out.println("Goodbye!");
                     running = false;
                     break;
 
                 default:
-                    System.out.println("Invalid choice! Please choose 1-6.");
+                    System.out.println("Invalid choice! Please choose 1-10.");
             }
         }
 

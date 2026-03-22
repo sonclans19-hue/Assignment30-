@@ -19,4 +19,9 @@
 19/3/2026 từ đoạn code trên tạo hàm autocomplete
 20/3/2026:Hãy giúp tôi thiết kế lại một chương trình từ điển bằng Java theo hướng OOP. mỗi file có một nhiệm vụ riêng
            Nhiệm vụ của từng class trong project này 
-21/3/2026:Thêm chức năng hiển thị tất cả từ đã thêm theo cách phân trang mỗi trang 10 từ và yêu cầu xác nhận sau khi xoá dữ liệu
+21/3/2026:- Thêm chức năng hiển thị tất cả từ đã thêm theo cách phân trang mỗi trang 10 từ và yêu cầu xác nhận sau khi xoá dữ liệu
+          
+           -thêm tính năng này Chuẩn hóa dữ liệu nhập: Loại khoảng trắng dư, chặn từ rỗng, chặn nghĩa quá dài bất thường. 
+           - Thêm tính năng autowrite( tạo một bạn ghi tạm rồi đổi tên thành file chính)
+           -Thêm tính năng thống kê 
+22/32026: Thêm tính năng từ yếu thích,show tất cả từ yêu thích và tính năng xoá tất cả từ đã thêm trước đó

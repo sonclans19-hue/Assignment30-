@@ -23,6 +23,10 @@ public class Dictionary {
         entries.remove(word);
     }
 
+    public void clear() {
+        entries.clear();
+    }
+
     public List<String> autocomplete(String prefix) {
         List<String> suggestions = new ArrayList<>();
         for (String word : entries.keySet()) {

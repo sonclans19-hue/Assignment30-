@@ -1,6 +1,9 @@
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -54,12 +57,23 @@ public class FileDictionaryRepository implements DictionaryRepository {
                 dir.mkdirs();
             }
 
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+            File tempFile = new File(file.getPath() + ".tmp");
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
                 for (String word : data.keySet()) {
                     bw.write(word + "=" + data.get(word));
                     bw.newLine();
                 }
             }
+
+            Path target = file.toPath();
+            Path temp = tempFile.toPath();
+
+            if (Files.exists(target)) {
+                Path backup = new File(file.getPath() + ".bak").toPath();
+                Files.copy(target, backup, StandardCopyOption.REPLACE_EXISTING);
+            }
+
+            Files.move(temp, target, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
         } catch (Exception e) {
             e.printStackTrace();
         }
